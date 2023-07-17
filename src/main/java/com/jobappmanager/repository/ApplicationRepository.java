@@ -8,5 +8,5 @@ import org.springframework.stereotype.Repository;
 public interface ApplicationRepository extends JpaRepository<Application, Long> {
     Application findByEmail(String newName);
 
-    boolean findByContactNumber(String contactNumber);
+    Application findByContactNumber(String contactNumber);
 }

@@ -24,6 +24,19 @@ public class ApplicationService implements IapplicationService {
     //--------------------------------- Submit Application---------------------------------
 
     public Application submitApplication(Long jobRoleId, Application application) {
+        String newEmail = application.getEmail();
+        String newContactNumber = application.getContactNumber();
+
+        Application existingEmail = applicationRepository.findByEmail(newEmail);
+        if (existingEmail != null) {
+            throw new JobAppManagerException("Application already exists with the same email.");
+        }
+
+        Application existingContactNumber = applicationRepository.findByContactNumber(newContactNumber);
+        if (existingContactNumber != null) {
+            throw new JobAppManagerException("Application already exists with the same contact number.");
+        }
+
         JobRole jobRole = jobRoleRepository.findById(jobRoleId)
                 .orElseThrow(() -> new JobAppManagerException("Job role not found with id: " + jobRoleId));
         long id = jobRole.getDepartment().getId();
