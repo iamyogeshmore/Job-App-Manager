@@ -5,7 +5,6 @@ import com.jobappmanager.model.Application;
 import com.jobappmanager.model.JobRole;
 import com.jobappmanager.repository.ApplicationRepository;
 import com.jobappmanager.repository.JobRoleRepository;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,8 +16,6 @@ public class ApplicationService implements IapplicationService {
     ApplicationRepository applicationRepository;
     @Autowired
     JobRoleRepository jobRoleRepository;
-    @Autowired
-    ModelMapper modelMapper;
 
     //--------------------------------- Register New Application---------------------------------
 //    @Override
