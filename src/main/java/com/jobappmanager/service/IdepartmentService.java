@@ -5,11 +5,11 @@ import com.jobappmanager.model.Department;
 import java.util.List;
 
 public interface IdepartmentService {
+    Department createDepartment(Department department);
+
     List<Department> getAllDepartments();
 
     Department getDepartmentById(Long id);
-
-    Department createDepartment(Department department);
 
     void deleteDepartment(Long id);
 }

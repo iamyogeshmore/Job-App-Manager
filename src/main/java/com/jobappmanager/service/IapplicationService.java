@@ -6,7 +6,7 @@ import com.jobappmanager.model.Application;
 import java.util.List;
 
 public interface IapplicationService {
-    Application RegisterNewApplication(ApplicationDTO applicationDTO);
+//    Application RegisterNewApplication(ApplicationDTO applicationDTO);
 
     List<Application> getAllApplications();
 

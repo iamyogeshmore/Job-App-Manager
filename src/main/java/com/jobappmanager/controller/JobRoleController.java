@@ -29,29 +29,32 @@ public class JobRoleController {
         this.applicationService = applicationService;
     }
 
+    //--------------------------------- create Job Role ---------------------------------
+    @PostMapping("/{departmentId}")
+    public ResponseEntity<ResponseDTO> createJobRole(@PathVariable Long departmentId, @RequestBody JobRole jobRole) {
+        JobRole jobRoles = jobRoleService.createJobRole(departmentId, jobRole);
+        ResponseDTO respDTO = new ResponseDTO(jobRoles, " created Job Role.");
+        return new ResponseEntity<>(respDTO, HttpStatus.OK);
+    }
+
     //--------------------------------- get All Job Roles ---------------------------------
     @GetMapping("/getAllJobRoles")
     public ResponseEntity<ResponseDTO> getAllJobRoles() {
         jobRoleList = jobRoleService.getAllJobRoles();
-        ResponseDTO respOTO = new ResponseDTO(jobRoleList,"All employee data retrieved successfully.");
+        ResponseDTO respOTO = new ResponseDTO(jobRoleList, "All Job roll data retrieved successfully.");
         return new ResponseEntity<ResponseDTO>(respOTO, HttpStatus.OK);
     }
-    //--------------------------------- Get employee by id ---------------------------------
+
+    //--------------------------------- Get Job Role by id ---------------------------------
     @GetMapping("/{id}")
     public ResponseEntity<ResponseDTO> getJobRoleById(@PathVariable("id") Long id) {
         JobRole jobRoleData = jobRoleService.getJobRoleById(id);
-        ResponseDTO respDTO = new ResponseDTO(jobRoleData,"Job roll data found successfully.");
+        ResponseDTO respDTO = new ResponseDTO(jobRoleData, "Job roll data found successfully.");
         return new ResponseEntity<ResponseDTO>(respDTO, HttpStatus.OK);
     }
-    //--------------------------------- creat eJob Role ---------------------------------
-    @PostMapping("/{departmentId}")
-    public ResponseEntity<ResponseDTO> createJobRole(@PathVariable Long departmentId, @RequestBody JobRole jobRole) {
-        JobRole jobRoles = jobRoleService.createJobRole(departmentId, jobRole);
-        ResponseDTO respDTO = new ResponseDTO( jobRoles," created Job Role");
-        return new ResponseEntity<>(respDTO, HttpStatus.OK);
-    }
 
-    //--------------------------------- Delete employee ---------------------------------
+
+    //--------------------------------- Delete Job Role ---------------------------------
     @DeleteMapping("/{id}")
     public ResponseEntity<ResponseDTO> deleteJobRole(@PathVariable Long id) {
         jobRoleService.deleteJobRole(id);
@@ -59,12 +62,5 @@ public class JobRoleController {
         return new ResponseEntity<ResponseDTO>(respDTO, HttpStatus.OK);
     }
 
-    @PostMapping("/{jobRoleId}/applications")
-
-    public ResponseEntity<ResponseDTO> submitApplication(@PathVariable Long jobRoleId, @RequestBody Application application) {
-        applicationService.submitApplication(jobRoleId, application);
-        ResponseDTO respDTO = new ResponseDTO(application,"submit Application");
-        return new ResponseEntity<ResponseDTO>(respDTO, HttpStatus.OK);
-    }
 
 }

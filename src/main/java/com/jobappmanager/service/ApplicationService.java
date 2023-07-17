@@ -21,39 +21,38 @@ public class ApplicationService implements IapplicationService {
     @Autowired
     ModelMapper modelMapper;
 
-    @Override
-    public Application RegisterNewApplication(ApplicationDTO applicationDTO) {
-        if (applicationRepository.findByEmail(applicationDTO.getEmail()) == null) {
-            Application registerNewUser = modelMapper.map(applicationDTO,Application.class);
-            applicationRepository.save(registerNewUser);
-            return registerNewUser;
-        }
-        throw  new JobAppManagerException("Application Already Exist with this Email id ."+"\n Please Try with Another Email id");
+    //--------------------------------- Register New Application---------------------------------
+//    @Override
+//    public Application RegisterNewApplication(ApplicationDTO applicationDTO) {
+//        if (applicationRepository.findByEmail(applicationDTO.getEmail()) == null) {
+//            Application registerNewUser = modelMapper.map(applicationDTO, Application.class);
+//            applicationRepository.save(registerNewUser);
+//            return registerNewUser;
+//        }
+//        throw new JobAppManagerException("Application Already Exist with this Email id ." + "\n Please Try with Another Email id");
+//    }
+    //--------------------------------- Submit Application---------------------------------
+
+    public Application submitApplication(Long jobRoleId, Application application) {
+        JobRole jobRole = jobRoleRepository.findById(jobRoleId)
+                .orElseThrow(() -> new JobAppManagerException("Job role not found with id: " + jobRoleId));
+        application.setJobRole(jobRole);
+        return applicationRepository.save(application);
+    }
+    //--------------------------------- Get All Applications ---------------------------------
+
+    public List<Application> getAllApplications() {
+        return applicationRepository.findAll();
     }
 
-        public ApplicationService(ApplicationRepository applicationRepository, JobRoleRepository jobRoleRepository) {
-            this.applicationRepository = applicationRepository;
-            this.jobRoleRepository = jobRoleRepository;
-        }
+    //--------------------------------- Get Application By Id ---------------------------------
+    public Application getApplicationById(Long id) {
+        return applicationRepository.findById(id)
+                .orElseThrow(() -> new JobAppManagerException("Application not found with id: " + id));
+    }
 
-        public Application submitApplication(Long jobRoleId, Application application) {
-            JobRole jobRole = jobRoleRepository.findById(jobRoleId)
-                    .orElseThrow(() -> new JobAppManagerException("Job role not found with id: " + jobRoleId));
-            application.setJobRole(jobRole);
-            return applicationRepository.save(application);
-        }
-
-        public List<Application> getAllApplications() {
-            return applicationRepository.findAll();
-        }
-
-        public Application getApplicationById(Long id) {
-            return applicationRepository.findById(id)
-                    .orElseThrow(() -> new JobAppManagerException("Application not found with id: " + id));
-        }
-
-        public void deleteApplication(Long id) {
-            applicationRepository.deleteById(id);
-
+    //--------------------------------- Delete Application ---------------------------------
+    public void deleteApplication(Long id) {
+        applicationRepository.deleteById(id);
     }
 }

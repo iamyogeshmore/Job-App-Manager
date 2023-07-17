@@ -6,7 +6,6 @@ public class ResponseDTO {
     String message;
     Object obj;
 
-
     public ResponseDTO(Object obj, String message) {
         this.obj = obj;
         this.message = message;
@@ -15,7 +14,6 @@ public class ResponseDTO {
     public ResponseDTO(String obj, Application newApplicationData) {
 
     }
-
 
     public Object getObj() {
         return obj;

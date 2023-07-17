@@ -5,6 +5,7 @@ import com.jobappmanager.model.Department;
 import com.jobappmanager.model.JobRole;
 import com.jobappmanager.repository.DepartmentRepository;
 import com.jobappmanager.repository.JobRoleRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,23 +13,12 @@ import java.util.List;
 @Service
 public class JobRoleService implements IjobRoleService {
 
-    private final JobRoleRepository jobRoleRepository;
-    private final DepartmentRepository departmentRepository;
+    @Autowired
+    JobRoleRepository jobRoleRepository;
+    @Autowired
+    DepartmentRepository departmentRepository;
 
-    public JobRoleService(JobRoleRepository jobRoleRepository, DepartmentRepository departmentRepository) {
-        this.jobRoleRepository = jobRoleRepository;
-        this.departmentRepository = departmentRepository;
-    }
-
-    public List<JobRole> getAllJobRoles() {
-        return jobRoleRepository.findAll();
-    }
-
-    public JobRole getJobRoleById(Long id) {
-        return jobRoleRepository.findById(id)
-                .orElseThrow(() -> new JobAppManagerException("Job role not found with id: " + id));
-    }
-
+    //--------------------------------- Create Job Role ---------------------------------
     public JobRole createJobRole(Long departmentId, JobRole jobRole) {
         Department department = departmentRepository.findById(departmentId)
                 .orElseThrow(() -> new JobAppManagerException("Department not found with id: " + departmentId));
@@ -36,6 +26,18 @@ public class JobRoleService implements IjobRoleService {
         return jobRoleRepository.save(jobRole);
     }
 
+    //--------------------------------- Get All Job Roles ---------------------------------
+    public List<JobRole> getAllJobRoles() {
+        return jobRoleRepository.findAll();
+    }
+
+    //--------------------------------- Get Job Role By Id ---------------------------------
+    public JobRole getJobRoleById(Long id) {
+        return jobRoleRepository.findById(id)
+                .orElseThrow(() -> new JobAppManagerException("Job role not found with id: " + id));
+    }
+
+    //--------------------------------- Delete Job Role ---------------------------------
     public void deleteJobRole(Long id) {
         jobRoleRepository.deleteById(id);
     }

@@ -19,31 +19,36 @@ public class DepartmentController {
     IdepartmentService departmentService;
     List<Department> departmentList = new ArrayList<>();
 
-    public DepartmentController(DepartmentService departmentService) {
-        this.departmentService = departmentService;
+    //--------------------------------- Create Department ---------------------------------
+    @PostMapping("/createDepartment")
+    public ResponseEntity<ResponseDTO> createDepartment(@RequestBody Department department) {
+        Department department1 = departmentService.createDepartment(department);
+        ResponseDTO respOTO = new ResponseDTO(department1, "Register new department successfully.");
+        return new ResponseEntity<ResponseDTO>(respOTO, HttpStatus.OK);
     }
-    //--------------------------------- Get all employee ---------------------------------
+
+    //--------------------------------- Get All Departments ---------------------------------
     @GetMapping("/getAllDepartments")
     public ResponseEntity<ResponseDTO> getAllDepartments() {
         departmentList = departmentService.getAllDepartments();
         ResponseDTO respOTO = new ResponseDTO(departmentList,"All department data retrieved successfully.");
         return new ResponseEntity<ResponseDTO>(respOTO, HttpStatus.OK);
     }
-    //--------------------------------- Get all employee ---------------------------------
 
-
+    //--------------------------------- Get Department By Id ---------------------------------
     @GetMapping("/{id}")
-    public Department getDepartmentById(@PathVariable Long id) {
-        return departmentService.getDepartmentById(id);
+    public ResponseEntity<ResponseDTO> getDepartmentById(@PathVariable Long id) {
+        Department department = departmentService.getDepartmentById(id);
+        ResponseDTO respDTO = new ResponseDTO(department,"department data retrieved successfully.");
+        return new ResponseEntity<ResponseDTO>(respDTO, HttpStatus.OK);
     }
 
-    @PostMapping
-    public Department createDepartment(@RequestBody Department department) {
-        return departmentService.createDepartment(department);
-    }
 
+    //--------------------------------- Delete Department ---------------------------------
     @DeleteMapping("/{id}")
-    public void deleteDepartment(@PathVariable Long id) {
+    public ResponseEntity<ResponseDTO> deleteDepartment(@PathVariable Long id) {
         departmentService.deleteDepartment(id);
+        ResponseDTO respDTO = new ResponseDTO(id, "Department deleted successfully");
+        return new ResponseEntity<ResponseDTO>(respDTO, HttpStatus.OK);
     }
 }

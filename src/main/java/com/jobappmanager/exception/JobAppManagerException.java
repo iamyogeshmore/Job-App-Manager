@@ -1,13 +1,13 @@
 package com.jobappmanager.exception;
 
-public class JobAppManagerException extends RuntimeException{
+public class JobAppManagerException extends RuntimeException {
     String message;
 
     public JobAppManagerException(String message) {
         this.message = message;
     }
 
-    public JobAppManagerException(){
+    public JobAppManagerException() {
 
     }
 

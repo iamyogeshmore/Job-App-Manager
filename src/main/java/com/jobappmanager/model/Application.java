@@ -1,4 +1,5 @@
 package com.jobappmanager.model;
+
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -29,6 +30,4 @@ public class Application {
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Department department;
-
-
 }

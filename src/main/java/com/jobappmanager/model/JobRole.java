@@ -17,9 +17,6 @@ public class JobRole {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String roleName;
-    private String experience;
-    private String location;
-
     @ManyToOne
     private Department department;
 

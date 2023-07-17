@@ -7,10 +7,7 @@ import com.jobappmanager.service.IapplicationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,15 +18,16 @@ public class ApplicationController {
     IapplicationService iapplicationService;
     List<Application> applicationList = new ArrayList<>();
 
-    //--------------------------------- Add Application ---------------------------------
-    @PostMapping("/Register_Application")
-    public ResponseEntity<ResponseDTO> RegisterNewApplication(@RequestBody ApplicationDTO applicationDTO) {
-        Application newApplicationData = iapplicationService.RegisterNewApplication(applicationDTO);
-        ResponseDTO respOTO = new ResponseDTO(newApplicationData, "Register new application successfully.");
-        return new ResponseEntity<ResponseDTO>(respOTO, HttpStatus.OK);
-    }
+    //--------------------------------- Submit Application ---------------------------------
 
-    //--------------------------------- Add Application ---------------------------------
+    @PostMapping("/{jobRoleId}/applications")
+
+    public ResponseEntity<ResponseDTO> submitApplication(@PathVariable Long jobRoleId, @RequestBody Application application) {
+        iapplicationService.submitApplication(jobRoleId, application);
+        ResponseDTO respDTO = new ResponseDTO(application, "Submit Application Successfully.");
+        return new ResponseEntity<ResponseDTO>(respDTO, HttpStatus.OK);
+    }
+    //--------------------------------- Get All Applications ---------------------------------
 
     @GetMapping("/getAllApplications")
     public ResponseEntity<ResponseDTO> showAllApplications() {
