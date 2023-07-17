@@ -11,4 +11,8 @@ public interface IapplicationService {
     List<Application> getAllApplications();
 
     Application submitApplication(Long jobRoleId, Application application);
+
+    Application getApplicationById(Long id);
+
+    void deleteApplication(Long id);
 }

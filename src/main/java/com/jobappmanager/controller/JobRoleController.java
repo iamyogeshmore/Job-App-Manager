@@ -1,7 +1,6 @@
 package com.jobappmanager.controller;
 
 import com.jobappmanager.dto.ResponseDTO;
-import com.jobappmanager.model.Application;
 import com.jobappmanager.model.JobRole;
 import com.jobappmanager.service.ApplicationService;
 import com.jobappmanager.service.IapplicationService;
@@ -53,7 +52,6 @@ public class JobRoleController {
         return new ResponseEntity<ResponseDTO>(respDTO, HttpStatus.OK);
     }
 
-
     //--------------------------------- Delete Job Role ---------------------------------
     @DeleteMapping("/{id}")
     public ResponseEntity<ResponseDTO> deleteJobRole(@PathVariable Long id) {
@@ -61,6 +59,4 @@ public class JobRoleController {
         ResponseDTO respDTO = new ResponseDTO(id, "Deleted Successfully");
         return new ResponseEntity<ResponseDTO>(respDTO, HttpStatus.OK);
     }
-
-
 }

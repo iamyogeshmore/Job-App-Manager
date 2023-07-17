@@ -1,6 +1,5 @@
 package com.jobappmanager.controller;
 
-import com.jobappmanager.dto.ApplicationDTO;
 import com.jobappmanager.dto.ResponseDTO;
 import com.jobappmanager.model.Application;
 import com.jobappmanager.service.IapplicationService;
@@ -34,5 +33,21 @@ public class ApplicationController {
         applicationList = iapplicationService.getAllApplications();
         ResponseDTO respOTO = new ResponseDTO(applicationList, "All application data retrieved successfully.");
         return new ResponseEntity<ResponseDTO>(respOTO, HttpStatus.OK);
+    }
+
+    //--------------------------------- Get Department By Id ---------------------------------
+    @GetMapping("/{id}")
+    public ResponseEntity<ResponseDTO> getApplicationById(@PathVariable Long id) {
+        Application application = iapplicationService.getApplicationById(id);
+        ResponseDTO respDTO = new ResponseDTO(id, "Application data retrieved successfully.");
+        return new ResponseEntity<ResponseDTO>(respDTO, HttpStatus.OK);
+    }
+
+    //--------------------------------- Delete Department ---------------------------------
+    @DeleteMapping("/{id}")
+    public ResponseEntity<ResponseDTO> deleteApplication(@PathVariable Long id) {
+        iapplicationService.deleteApplication(id);
+        ResponseDTO respDTO = new ResponseDTO(id, "Application deleted successfully");
+        return new ResponseEntity<ResponseDTO>(respDTO, HttpStatus.OK);
     }
 }

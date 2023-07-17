@@ -1,6 +1,5 @@
 package com.jobappmanager.service;
 
-import com.jobappmanager.dto.ApplicationDTO;
 import com.jobappmanager.exception.JobAppManagerException;
 import com.jobappmanager.model.Application;
 import com.jobappmanager.model.JobRole;
