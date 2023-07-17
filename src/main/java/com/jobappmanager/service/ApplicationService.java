@@ -59,7 +59,11 @@ public class ApplicationService implements IapplicationService {
     }
 
     //--------------------------------- Delete Application ---------------------------------
-    public void deleteApplication(Long id) {
-        applicationRepository.deleteById(id);
+    public String deleteApplication(Long id) {
+        if (applicationRepository.findById(id).isPresent()) {
+            applicationRepository.deleteById(id);
+            return "Data Deleted successfully.";
+        }
+        throw new JobAppManagerException("Application not found from Id " + id + " Invalid Id ");
     }
 }

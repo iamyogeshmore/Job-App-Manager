@@ -15,6 +15,11 @@ public class DepartmentService implements IdepartmentService {
 
     //--------------------------------- Create Department ---------------------------------
     public Department createDepartment(Department department) {
+        String departmentName = department.getDepartmentName();
+        Department existingDepartment = departmentRepository.findByDepartmentName(departmentName);
+        if (existingDepartment != null) {
+            throw new JobAppManagerException("Department already exists with the same name.");
+        }
         return departmentRepository.save(department);
     }
 

@@ -1,9 +1,9 @@
-    package com.jobappmanager.repository;
+package com.jobappmanager.repository;
 
-    import com.jobappmanager.model.JobRole;
-    import org.springframework.data.jpa.repository.JpaRepository;
-    import org.springframework.stereotype.Repository;
+import com.jobappmanager.model.JobRole;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-    @Repository
-    public interface JobRoleRepository extends JpaRepository<JobRole, Long> {
-    }
+@Repository
+public interface JobRoleRepository extends JpaRepository<JobRole, Long> {
+}
