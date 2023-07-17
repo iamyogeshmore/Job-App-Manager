@@ -2,8 +2,10 @@ package com.jobappmanager.service;
 
 import com.jobappmanager.exception.JobAppManagerException;
 import com.jobappmanager.model.Application;
+import com.jobappmanager.model.Department;
 import com.jobappmanager.model.JobRole;
 import com.jobappmanager.repository.ApplicationRepository;
+import com.jobappmanager.repository.DepartmentRepository;
 import com.jobappmanager.repository.JobRoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,25 +18,21 @@ public class ApplicationService implements IapplicationService {
     ApplicationRepository applicationRepository;
     @Autowired
     JobRoleRepository jobRoleRepository;
+    @Autowired
+    DepartmentRepository departmentRepository;
 
-    //--------------------------------- Register New Application---------------------------------
-//    @Override
-//    public Application RegisterNewApplication(ApplicationDTO applicationDTO) {
-//        if (applicationRepository.findByEmail(applicationDTO.getEmail()) == null) {
-//            Application registerNewUser = modelMapper.map(applicationDTO, Application.class);
-//            applicationRepository.save(registerNewUser);
-//            return registerNewUser;
-//        }
-//        throw new JobAppManagerException("Application Already Exist with this Email id ." + "\n Please Try with Another Email id");
-//    }
     //--------------------------------- Submit Application---------------------------------
 
     public Application submitApplication(Long jobRoleId, Application application) {
         JobRole jobRole = jobRoleRepository.findById(jobRoleId)
                 .orElseThrow(() -> new JobAppManagerException("Job role not found with id: " + jobRoleId));
+        long id = jobRole.getDepartment().getId();
+        Department department = departmentRepository.findById(id);
         application.setJobRole(jobRole);
+        application.setDepartment(department);
         return applicationRepository.save(application);
     }
+
     //--------------------------------- Get All Applications ---------------------------------
 
     public List<Application> getAllApplications() {
