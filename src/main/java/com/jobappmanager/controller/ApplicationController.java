@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
+@CrossOrigin("*")
 public class ApplicationController {
     @Autowired
     IapplicationService iapplicationService;

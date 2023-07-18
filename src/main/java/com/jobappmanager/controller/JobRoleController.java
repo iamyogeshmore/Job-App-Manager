@@ -16,6 +16,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/jobroles")
+@CrossOrigin("*")
 public class JobRoleController {
     @Autowired
     IjobRoleService jobRoleService;
